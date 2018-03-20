@@ -148,14 +148,12 @@ usd['USD Diff -1'] = usd['USD Diff'].fillna(usd['USD Diff'])
 usd['EUR Diff -1'] = usd['EUR Diff'].fillna(usd['EUR Diff'])
 usd['BIST Diff -1'] = usd['BIST Diff'].fillna(usd['BIST Diff'])
 
-#data['A Sell Diff'] = (100*(data['A'] - data['Last_Month_A'])/data['Last_Month_A'])
-#data['B Sell Diff'] = (100*(data['B'] - data['Last_Month_B'])/data['Last_Month_B'])
-#data['C Sell Diff'] = (100*(data['C'] - data['Last_Month_C'])/data['Last_Month_C'])
-#data['D Sell Diff'] = (100*(data['D'] - data['Last_Month_D'])/data['Last_Month_D'])
-#data['E Sell Diff'] = (100*(data['E'] - data['Last_Month_E'])/data['Last_Month_E'])
-#data['F Sell Diff'] = (100*(data['F'] - data['Last_Month_F'])/data['Last_Month_F'])
-
-
+data['A Sell Diff'] = (100*(data['A'] - data['Last_Month_A'])/data['Last_Month_A'])
+data['B Sell Diff'] = (100*(data['B'] - data['Last_Month_B'])/data['Last_Month_B'])
+data['C Sell Diff'] = (100*(data['C'] - data['Last_Month_C'])/data['Last_Month_C'])
+data['D Sell Diff'] = (100*(data['D'] - data['Last_Month_D'])/data['Last_Month_D'])
+data['E Sell Diff'] = (100*(data['E'] - data['Last_Month_E'])/data['Last_Month_E'])
+data['F Sell Diff'] = (100*(data['F'] - data['Last_Month_F'])/data['Last_Month_F'])
 
 
 #for -3 month
@@ -288,30 +286,13 @@ del usd, last2usd, data2
 
 
 
+#Coppied Data For Working On Random Forest Classifier
+classified_target = data.iloc[2:-1,:].copy()
 
 
 
-#sns.pairplot(data, x_vars=['BIST Now',
-#                           'BIST Open',
-#                           'BIST High',
-#                           'BIST Low',
-#                           'BIST Vol',
-#                           'BIST Diff',
-#                           'USD Now'
-#                           'USD Open',
-#                           'USD High',
-#                           'USD Low',
-#                           'USD Diff',
-#                           'EUR Now',
-#                           'EUR Open',
-#                           'EUR High',
-#                           'EUR Low',
-#                           'EUR Diff',
-#                           'A',
-#                           'B',
-#                           'D',
-#                           'E',
-#                           'F',], y_vars='C',size=7, aspect=0.7,kind='reg')
+
+
 
 
 
@@ -345,23 +326,7 @@ del y_trainset, y_testset
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print("SALE PREDICTION ACCORDING TO LAST MOUNTHS SALE WITH RANDOM FOREST REGRESSOR")
 
 
 def rmsle(ytrue,ypred):
@@ -482,3 +447,40 @@ del feature_cols, features, importances, indices
 
 
 
+
+
+
+'''
+        PREDICTION OF CHANGE ACCORDING TO CLASSIFICATION OF SALE CHANGE
+'''
+
+
+
+print("PREDICTION OF CHANGE ACCORDING TO CLASSIFICATION OF SALE CHANGE")
+
+classified_target['A Sell Diff'] = classified_target['A Sell Diff'].astype(int)
+classified_target['B Sell Diff'] = classified_target['B Sell Diff'].astype(int)
+classified_target['C Sell Diff'] = classified_target['C Sell Diff'].astype(int)
+classified_target['D Sell Diff'] = classified_target['D Sell Diff'].astype(int)
+classified_target['E Sell Diff'] = classified_target['E Sell Diff'].astype(int)
+classified_target['F Sell Diff'] = classified_target['F Sell Diff'].astype(int)
+
+
+x = pd.crosstab(pd.qcut(classified_target['A Sell Diff'],10), columns=classified_target['A'])
+x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+print x
+
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >= -86.001) & (classified_target['A Sell Diff'] <=-47.2)),0,
+                                                 np.where((classified_target['A Sell Diff'] > -47.2) & (classified_target['A Sell Diff'] <=-27.4)), 1,
+                                                 np.where((classified_target['A Sell Diff'] > -27.4) & (classified_target['A Sell Diff'] <=-13.0)), 2,
+                                                 np.where((classified_target['A Sell Diff'] > -13.0) & (classified_target['A Sell Diff'] <=-4.6)), 3,
+                                                 np.where((classified_target['A Sell Diff'] >  -4.6) & (classified_target['A Sell Diff'] <= 9.0)), 4,
+                                                 np.where((classified_target['A Sell Diff'] >   9.0) & (classified_target['A Sell Diff'] <= 23.6)), 5,
+                                                 np.where((classified_target['A Sell Diff'] >  23.6) & (classified_target['A Sell Diff'] <= 32.2)), 6,
+                                                 np.where((classified_target['A Sell Diff'] >  32.2) & (classified_target['A Sell Diff'] <= 40.8)), 7,
+                                                 np.where((classified_target['A Sell Diff'] >  40.8) & (classified_target['A Sell Diff'] <= 72.8)), 8,
+                                                 np.where((classified_target['A Sell Diff'] >  72.8) & (classified_target['A Sell Diff'] <= 275.0)), 9)
+
+dists[(np.where((dists >= r) & (dists <= r + dr)))]
+i['Fam_Size'] = np.where((i['SibSp']+ i['Parch']) == 0, 'Solo',
+                             np.where((i['SibSp']+i['Parch']) <= 3, 'Nuclear','Big'))
