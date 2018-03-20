@@ -87,7 +87,7 @@ del df_2004,df_2005,df_2006,df_2007,df_2008,df_2009,df_2010,df_2011,df_2012,df_2
 
 
 
-autocorrelation_plot(data)
+#autocorrelation_plot(data)
 
 
 
@@ -152,13 +152,23 @@ usd['BIST Diff -1'] = usd['BIST Diff'].fillna(usd['BIST Diff'])
 
 #for -3 month
 last2usd = last2usd.shift(1)
+data2 = data.copy().shift(1)
 usd['Export Diff -1'] = 100*(usd['Exports'] - last2usd['Exports'])/usd['Exports']
 usd['Import Diff -1'] = 100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']
+
+data['A Sell Diff -1'] = 100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']
+data['B Sell Diff -1'] = 100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']
+data['C Sell Diff -1'] = 100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']
+data['D Sell Diff -1'] = 100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']
+data['E Sell Diff -1'] = 100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']
+data['F Sell Diff -1'] = 100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']
 
 
 
 #for -2 month
 last2usd = last2usd.shift(1)
+data2 = data.copy().shift(1)
+
 usd['USD Diff -2'] = (100*(usd['USD Now'] - last2usd['USD Now'])/usd['USD Now']).fillna(usd['USD Diff -1'])
 usd['EUR Diff -2'] = (100*(usd['EUR Now'] - last2usd['EUR Now'])/usd['EUR Now']).fillna(usd['EUR Diff -1'])
 usd['BIST Diff -2'] = (100*(usd['BIST Now'] - last2usd['BIST Now'])/usd['BIST Now']).fillna(usd['BIST Diff -1'])
@@ -166,33 +176,75 @@ usd['Export Diff -2'] = (100*(usd['Exports'] - last2usd['Exports'])/usd['Exports
 usd['Import Diff -2'] = (100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']).fillna(usd['Import Diff -1'])
 
 
+data['A Sell Diff -2'] = (100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']).fillna(data['A Sell Diff -1'])
+data['B Sell Diff -2'] = (100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']).fillna(data['B Sell Diff -1'])
+data['C Sell Diff -2'] = (100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']).fillna(data['C Sell Diff -1'])
+data['D Sell Diff -2'] = (100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']).fillna(data['D Sell Diff -1'])
+data['E Sell Diff -2'] = (100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']).fillna(data['E Sell Diff -1'])
+data['F Sell Diff -2'] = (100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']).fillna(data['F Sell Diff -1'])
+
 
 #for -3 month
 last2usd = last2usd.shift(1)
+data2 = data.copy().shift(1)
+
 usd['USD Diff -3'] = (100*(usd['USD Now'] - last2usd['USD Now'])/usd['USD Now']).fillna(usd['USD Diff -2'])
 usd['EUR Diff -3'] = (100*(usd['EUR Now'] - last2usd['EUR Now'])/usd['EUR Now']).fillna(usd['EUR Diff -2'])
 usd['BIST Diff -3'] = (100*(usd['BIST Now'] - last2usd['BIST Now'])/usd['BIST Now']).fillna(usd['BIST Diff -2'])
 usd['Export Diff -3'] = (100*(usd['Exports'] - last2usd['Exports'])/usd['Exports']).fillna(usd['Export Diff -2'])
 usd['Import Diff -3'] = (100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']).fillna(usd['Import Diff -2'])
 
+
+data['A Sell Diff -3'] = (100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']).fillna(data['A Sell Diff -2'])
+data['B Sell Diff -3'] = (100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']).fillna(data['B Sell Diff -2'])
+data['C Sell Diff -3'] = (100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']).fillna(data['C Sell Diff -2'])
+data['D Sell Diff -3'] = (100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']).fillna(data['D Sell Diff -2'])
+data['E Sell Diff -3'] = (100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']).fillna(data['E Sell Diff -2'])
+data['F Sell Diff -3'] = (100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']).fillna(data['F Sell Diff -2'])
+
 #for -6 month
 last2usd = last2usd.shift(3)
+data2 = data.copy().shift(3)
+
 usd['USD Diff -6'] = (100*(usd['USD Now'] - last2usd['USD Now'])/usd['USD Now']).fillna(usd['USD Diff -3'])
 usd['EUR Diff -6'] = (100*(usd['EUR Now'] - last2usd['EUR Now'])/usd['EUR Now']).fillna(usd['EUR Diff -3'])
 usd['BIST Diff -6'] = (100*(usd['BIST Now'] - last2usd['BIST Now'])/usd['BIST Now']).fillna(usd['BIST Diff -3'])
 usd['Export Diff -6'] = (100*(usd['Exports'] - last2usd['Exports'])/usd['Exports']).fillna(usd['Export Diff -3'])
 usd['Import Diff -6'] = (100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']).fillna(usd['Import Diff -3'])
 
+
+data['A Sell Diff -6'] = (100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']).fillna(data['A Sell Diff -3'])
+data['B Sell Diff -6'] = (100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']).fillna(data['B Sell Diff -3'])
+data['C Sell Diff -6'] = (100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']).fillna(data['C Sell Diff -3'])
+data['D Sell Diff -6'] = (100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']).fillna(data['D Sell Diff -3'])
+data['E Sell Diff -6'] = (100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']).fillna(data['E Sell Diff -3'])
+data['F Sell Diff -6'] = (100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']).fillna(data['F Sell Diff -3'])
+
+
 #for -9 month
 last2usd = last2usd.shift(3)
+data2 = data.copy().shift(3)
+
 usd['USD Diff -9'] = (100*(usd['USD Now'] - last2usd['USD Now'])/usd['USD Now']).fillna(usd['USD Diff -6'])
 usd['EUR Diff -9'] = (100*(usd['EUR Now'] - last2usd['EUR Now'])/usd['EUR Now']).fillna(usd['EUR Diff -6'])
 usd['BIST Diff -9'] = (100*(usd['BIST Now'] - last2usd['BIST Now'])/usd['BIST Now']).fillna(usd['BIST Diff -6'])
 usd['Export Diff -9'] = (100*(usd['Exports'] - last2usd['Exports'])/usd['Exports']).fillna(usd['Export Diff -6'])
 usd['Import Diff -9'] = (100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']).fillna(usd['Import Diff -6'])
 
+
+data['A Sell Diff -9'] = (100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']).fillna(data['A Sell Diff -6'])
+data['B Sell Diff -9'] = (100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']).fillna(data['B Sell Diff -6'])
+data['C Sell Diff -9'] = (100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']).fillna(data['C Sell Diff -6'])
+data['D Sell Diff -9'] = (100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']).fillna(data['D Sell Diff -6'])
+data['E Sell Diff -9'] = (100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']).fillna(data['E Sell Diff -6'])
+data['F Sell Diff -9'] = (100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']).fillna(data['F Sell Diff -6'])
+
+
+
 #for -12 month
 last2usd = last2usd.shift(3)
+data2 = data.copy().shift(3)
+
 usd['USD Diff -12'] = (100*(usd['USD Now'] - last2usd['USD Now'])/usd['USD Now']).fillna(usd['USD Diff -9'])
 usd['EUR Diff -12'] = (100*(usd['EUR Now'] - last2usd['EUR Now'])/usd['EUR Now']).fillna(usd['EUR Diff -9'])
 usd['BIST Diff -12'] = (100*(usd['BIST Now'] - last2usd['BIST Now'])/usd['BIST Now']).fillna(usd['BIST Diff -9'])
@@ -200,12 +252,19 @@ usd['Export Diff -12'] = (100*(usd['Exports'] - last2usd['Exports'])/usd['Export
 usd['Import Diff -12'] = (100*(usd['Imports'] - last2usd['Imports'])/usd['Imports']).fillna(usd['Import Diff -9'])
 
 
+data['A Sell Diff -12'] = (100*(data['Last_Month_A'] - data2['Last_Month_A'])/data['Last_Month_A']).fillna(data['A Sell Diff -9'])
+data['B Sell Diff -12'] = (100*(data['Last_Month_B'] - data2['Last_Month_B'])/data['Last_Month_B']).fillna(data['B Sell Diff -9'])
+data['C Sell Diff -12'] = (100*(data['Last_Month_C'] - data2['Last_Month_C'])/data['Last_Month_C']).fillna(data['C Sell Diff -9'])
+data['D Sell Diff -12'] = (100*(data['Last_Month_D'] - data2['Last_Month_D'])/data['Last_Month_D']).fillna(data['D Sell Diff -9'])
+data['E Sell Diff -12'] = (100*(data['Last_Month_E'] - data2['Last_Month_E'])/data['Last_Month_E']).fillna(data['E Sell Diff -9'])
+data['F Sell Diff -12'] = (100*(data['Last_Month_F'] - data2['Last_Month_F'])/data['Last_Month_F']).fillna(data['F Sell Diff -9'])
+
+
 usd = usd.shift(-1)
 usd = usd.iloc[:,18:]
 
-data = data.iloc[:,0:12]
 data = data.join(usd)
-del usd, last2usd
+del usd, last2usd, data2
 
 
 
@@ -247,10 +306,10 @@ del usd, last2usd
 
 
 
-X_train = data.iloc[1:150,6:]
+X_train = data.iloc[2:150,6:]
 X_test = data.iloc[150:-1,6:]
     
-y_trainset = data.iloc[1:150,:6]
+y_trainset = data.iloc[2:150,:6]
 y_testset = data.iloc[150:-1,:6]
 
 y_A_train = y_trainset['A']
@@ -269,9 +328,9 @@ del y_trainset, y_testset
 
 
 
-model = ARIMA(data, order=(5,1,0))
-model_fit = model.fit(disp=0)
-print(model_fit.summary())
+#model = ARIMA(data, order=(5,1,0))
+#model_fit = model.fit(disp=0)
+#print(model_fit.summary())
 
 
 
