@@ -481,6 +481,6 @@ classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >
                                                  np.where((classified_target['A Sell Diff'] >  40.8) & (classified_target['A Sell Diff'] <= 72.8)), 8,
                                                  np.where((classified_target['A Sell Diff'] >  72.8) & (classified_target['A Sell Diff'] <= 275.0)), 9)
 
-dists[(np.where((dists >= r) & (dists <= r + dr)))]
-i['Fam_Size'] = np.where((i['SibSp']+ i['Parch']) == 0, 'Solo',
-                             np.where((i['SibSp']+i['Parch']) <= 3, 'Nuclear','Big'))
+#dists[(np.where((dists >= r) & (dists <= r + dr)))]
+#i['Fam_Size'] = np.where((i['SibSp']+ i['Parch']) == 0, 'Solo',
+#                             np.where((i['SibSp']+i['Parch']) <= 3, 'Nuclear','Big'))
