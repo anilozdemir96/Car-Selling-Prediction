@@ -456,6 +456,9 @@ del feature_cols, features, importances, indices
 
 
 
+classified_target = data.iloc[2:-1,:].copy()
+
+
 print("PREDICTION OF CHANGE ACCORDING TO CLASSIFICATION OF SALE CHANGE")
 
 classified_target['A Sell Diff'] = classified_target['A Sell Diff'].astype(int)
@@ -466,21 +469,106 @@ classified_target['E Sell Diff'] = classified_target['E Sell Diff'].astype(int)
 classified_target['F Sell Diff'] = classified_target['F Sell Diff'].astype(int)
 
 
-x = pd.crosstab(pd.qcut(classified_target['A Sell Diff'],10), columns=classified_target['A'])
-x['Value'] = [0,1,2,3,4,5,6,7,8,9]
-print x
+#x = pd.crosstab(pd.qcut(classified_target['A Sell Diff'],10), columns=classified_target['A'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x
 
-classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >= -86.001) & (classified_target['A Sell Diff'] <=-47.2)),0,
-                                                 np.where((classified_target['A Sell Diff'] > -47.2) & (classified_target['A Sell Diff'] <=-27.4)), 1,
-                                                 np.where((classified_target['A Sell Diff'] > -27.4) & (classified_target['A Sell Diff'] <=-13.0)), 2,
-                                                 np.where((classified_target['A Sell Diff'] > -13.0) & (classified_target['A Sell Diff'] <=-4.6)), 3,
-                                                 np.where((classified_target['A Sell Diff'] >  -4.6) & (classified_target['A Sell Diff'] <= 9.0)), 4,
-                                                 np.where((classified_target['A Sell Diff'] >   9.0) & (classified_target['A Sell Diff'] <= 23.6)), 5,
-                                                 np.where((classified_target['A Sell Diff'] >  23.6) & (classified_target['A Sell Diff'] <= 32.2)), 6,
-                                                 np.where((classified_target['A Sell Diff'] >  32.2) & (classified_target['A Sell Diff'] <= 40.8)), 7,
-                                                 np.where((classified_target['A Sell Diff'] >  40.8) & (classified_target['A Sell Diff'] <= 72.8)), 8,
-                                                 np.where((classified_target['A Sell Diff'] >  72.8) & (classified_target['A Sell Diff'] <= 275.0)), 9)
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > -4.6) & (classified_target['A Sell Diff'] <=9.0)),4,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >= -86.001) & (classified_target['A Sell Diff'] <=-47.2)),0,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > -47.2) & (classified_target['A Sell Diff'] <=-27.4)),1,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > -27.4) & (classified_target['A Sell Diff'] <=-13.0)),2,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > -13.0) & (classified_target['A Sell Diff'] <=-4.6)),3,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > 9.0) & (classified_target['A Sell Diff'] <=23.6)),5,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > 23.6) & (classified_target['A Sell Diff'] <=32.2)),6,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > 32.2) & (classified_target['A Sell Diff'] <=40.8)),7,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > 40.8) & (classified_target['A Sell Diff'] <=72.8)),8,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] > 72.8) & (classified_target['A Sell Diff'] <=275.0)),9,classified_target['A Sell Diff'])
 
-#dists[(np.where((dists >= r) & (dists <= r + dr)))]
-#i['Fam_Size'] = np.where((i['SibSp']+ i['Parch']) == 0, 'Solo',
-#                             np.where((i['SibSp']+i['Parch']) <= 3, 'Nuclear','Big'))
+#x = pd.crosstab(pd.qcut(classified_target['B Sell Diff'],10), columns=classified_target['B'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x['Value']
+
+
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    4.0) &      (classified_target['B Sell Diff'] <=    11.6)), 5,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    0.0) &      (classified_target['B Sell Diff'] <=     4.0)),  4, classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    -4.2) &     (classified_target['B Sell Diff'] <=     0.0)), 3,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >=   -84.001) &  (classified_target['B Sell Diff'] <=    -34.4)),0,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    -34.4) &    (classified_target['B Sell Diff'] <=    -10.8)),1,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    -10.8) &    (classified_target['B Sell Diff'] <=    -4.2)),2,   classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    11.6) &     (classified_target['B Sell Diff'] <=    18.2)), 6,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    18.2) &     (classified_target['B Sell Diff'] <=    41.4)), 7,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    41.4) &     (classified_target['B Sell Diff'] <=    66.2)), 8,  classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >    66.2) &     (classified_target['B Sell Diff'] <=    295.0)),9,  classified_target['B Sell Diff'])
+
+
+#x = pd.crosstab(pd.qcut(classified_target['C Sell Diff'],10), columns=classified_target['C'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x['Value']
+
+
+
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    0.0) &      (classified_target['C Sell Diff'] <=     5.0)),  4, classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    5.0) &      (classified_target['C Sell Diff'] <=    11.6)), 5,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    -5.0) &     (classified_target['C Sell Diff'] <=     0.0)), 3,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >=   -81.001) &  (classified_target['C Sell Diff'] <=    -35.8)),0,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    -35.8) &    (classified_target['C Sell Diff'] <=    -9.8)),1,   classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    -9.8) &     (classified_target['C Sell Diff'] <=    -5.0)),2,   classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    11.6) &     (classified_target['C Sell Diff'] <=    21.2)), 6,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    21.2) &     (classified_target['C Sell Diff'] <=    39.4)), 7,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    39.4) &     (classified_target['C Sell Diff'] <=    59.2)), 8,  classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >    59.2) &     (classified_target['C Sell Diff'] <=    210.0)),9,  classified_target['C Sell Diff'])
+
+
+#x = pd.crosstab(pd.qcut(classified_target['D Sell Diff'],10), columns=classified_target['D'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x['Value']
+
+
+
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >=    0.0) &      (classified_target['D Sell Diff'] <     6.0)),  4,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >=    6.0) &      (classified_target['D Sell Diff'] <=    13.6)), 5,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >=    -3.0) &     (classified_target['D Sell Diff'] <     0.0)), 3,   classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >=   -78.001) &   (classified_target['D Sell Diff'] <=    -35.8)),0,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    -35.8) &     (classified_target['D Sell Diff'] <=    -14.8)),1,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    -14.8) &     (classified_target['D Sell Diff'] <    -3.0)),2,    classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    13.6) &      (classified_target['D Sell Diff'] <=    24.2)), 6,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    24.2) &      (classified_target['D Sell Diff'] <=    35.4)), 7,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    35.4) &      (classified_target['D Sell Diff'] <=    52.2)), 8,  classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >    52.2) &      (classified_target['D Sell Diff'] <=    157.0)),9,  classified_target['D Sell Diff'])
+
+
+#x = pd.crosstab(pd.qcut(classified_target['E Sell Diff'],10), columns=classified_target['E'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x['Value']
+
+
+
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >     1.0) &      (classified_target['E Sell Diff'] <=     7.0)),  4,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    7.0) &      (classified_target['E Sell Diff'] <=    13.6)), 5,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    -6.0) &     (classified_target['E Sell Diff'] <=     1.0)), 3,   classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >=   -83.001) &   (classified_target['E Sell Diff'] <=    -37.8)),0,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    -37.8) &     (classified_target['E Sell Diff'] <=    -13.8)),1,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    -13.8) &     (classified_target['E Sell Diff'] <=    -6.0)),2,    classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    13.6) &      (classified_target['E Sell Diff'] <=    30.2)), 6,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    30.2) &      (classified_target['E Sell Diff'] <=    41.4)), 7,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    41.4) &      (classified_target['E Sell Diff'] <=    68.2)), 8,  classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >    68.2) &      (classified_target['E Sell Diff'] <=    126.0)),9,  classified_target['E Sell Diff'])
+
+
+#x = pd.crosstab(pd.qcut(classified_target['F Sell Diff'],10), columns=classified_target['F'])
+#x['Value'] = [0,1,2,3,4,5,6,7,8,9]
+#print x['Value']
+
+
+
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    4.0) &      (classified_target['F Sell Diff'] <=    18.0)), 5,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >     -3.0) &      (classified_target['F Sell Diff'] <=     4.0)),  4,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    -9.0) &     (classified_target['F Sell Diff'] <=     -3.0)), 3,   classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >=   -81.001) &   (classified_target['F Sell Diff'] <=    -41.8)),0,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    -41.8) &     (classified_target['F Sell Diff'] <=    -17.8)),1,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    -17.8) &     (classified_target['F Sell Diff'] <=    -9.0)),2,    classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    18.0) &      (classified_target['F Sell Diff'] <=    36.0)), 6,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    36.0) &      (classified_target['F Sell Diff'] <=    51.0)), 7,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    51.0) &      (classified_target['F Sell Diff'] <=    62.2)), 8,  classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    62.2) &      (classified_target['F Sell Diff'] <=    197.0)),9,  classified_target['F Sell Diff'])
+
