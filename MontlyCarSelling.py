@@ -297,8 +297,8 @@ classified_target = data.iloc[2:-1,:].copy()
 
 
 
-X_train = data.iloc[2:150,6:]
-X_test = data.iloc[150:-1,6:]
+X_train = data.iloc[2:150,6:12].join(data.iloc[2:150,18:])
+X_test = data.iloc[150:-1,6:12].join(data.iloc[150:-1,18:])
     
 y_trainset = data.iloc[2:150,:6]
 y_testset = data.iloc[150:-1,:6]
@@ -572,3 +572,142 @@ classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >
 classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    51.0) &      (classified_target['F Sell Diff'] <=    62.2)), 8,  classified_target['F Sell Diff'])
 classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >    62.2) &      (classified_target['F Sell Diff'] <=    197.0)),9,  classified_target['F Sell Diff'])
 
+
+
+x = pd.crosstab(pd.qcut(classified_target['A Sell Diff'],3), columns=classified_target['A'])
+x['Value'] = [0,1,2]
+print x['Value']
+
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >= 0) & (classified_target['A Sell Diff'] <=3.0)),0,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >  3) & (classified_target['A Sell Diff'] <=6.0)),1,classified_target['A Sell Diff'])
+classified_target['A Sell Diff'] = np.where(((classified_target['A Sell Diff'] >  6) & (classified_target['A Sell Diff'] <=9.0)),2,classified_target['A Sell Diff'])
+
+
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >= 0) & (classified_target['B Sell Diff'] <=3.0)),0,classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >  3) & (classified_target['B Sell Diff'] <=6.0)),1,classified_target['B Sell Diff'])
+classified_target['B Sell Diff'] = np.where(((classified_target['B Sell Diff'] >  6) & (classified_target['B Sell Diff'] <=9.0)),2,classified_target['B Sell Diff'])
+
+
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >= 0) & (classified_target['C Sell Diff'] <=3.0)),0,classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >  3) & (classified_target['C Sell Diff'] <=6.0)),1,classified_target['C Sell Diff'])
+classified_target['C Sell Diff'] = np.where(((classified_target['C Sell Diff'] >  6) & (classified_target['C Sell Diff'] <=9.0)),2,classified_target['C Sell Diff'])
+
+
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >= 0) & (classified_target['D Sell Diff'] <=3.0)),0,classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >  3) & (classified_target['D Sell Diff'] <=6.0)),1,classified_target['D Sell Diff'])
+classified_target['D Sell Diff'] = np.where(((classified_target['D Sell Diff'] >  6) & (classified_target['D Sell Diff'] <=9.0)),2,classified_target['D Sell Diff'])
+
+
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >= 0) & (classified_target['E Sell Diff'] <=3.0)),0,classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >  3) & (classified_target['E Sell Diff'] <=6.0)),1,classified_target['E Sell Diff'])
+classified_target['E Sell Diff'] = np.where(((classified_target['E Sell Diff'] >  6) & (classified_target['E Sell Diff'] <=9.0)),2,classified_target['E Sell Diff'])
+
+
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >= 0) & (classified_target['F Sell Diff'] <=3.0)),0,classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >  3) & (classified_target['F Sell Diff'] <=6.0)),1,classified_target['F Sell Diff'])
+classified_target['F Sell Diff'] = np.where(((classified_target['F Sell Diff'] >  6) & (classified_target['F Sell Diff'] <=9.0)),2,classified_target['F Sell Diff'])
+
+
+
+X_train = classified_target.iloc[:150,6:12].join(classified_target.iloc[:150,18:])
+X_test = classified_target.iloc[150:,6:12].join(classified_target.iloc[150:,18:])
+
+y_trainset = classified_target.iloc[:150,12:18]
+y_testset = classified_target.iloc[150:,12:18]
+
+y_A_train = y_trainset['A Sell Diff']
+y_A_test = y_testset['A Sell Diff']
+y_B_train = y_trainset['B Sell Diff']
+y_B_test = y_testset['B Sell Diff']
+y_C_train = y_trainset['C Sell Diff']
+y_C_test = y_testset['C Sell Diff']
+y_D_train = y_trainset['D Sell Diff']
+y_D_test = y_testset['D Sell Diff']
+y_E_train = y_trainset['E Sell Diff']
+y_E_test = y_testset['E Sell Diff']
+y_F_train = y_trainset['F Sell Diff']
+y_F_test = y_testset['F Sell Diff']
+del y_trainset, y_testset
+
+
+from sklearn.ensemble import RandomForestClassifier
+
+rf = RandomForestClassifier(criterion='gini', 
+                             n_estimators=1000,
+                             min_samples_split=10,
+                             min_samples_leaf=1,
+                             max_features='auto',
+                             oob_score=True,
+                             random_state=1,
+                             n_jobs=-1)
+
+rf.fit(X_train, y_A_train)
+print "Random Forest Classifier For A"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_A = rf.predict(X_test)
+
+print "Original A values: "
+print y_A_test
+print "Predicted A values: "
+print predicted_A
+
+
+
+rf.fit(X_train, y_B_train)
+print "Random Forest Classifier For B"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_B = rf.predict(X_test)
+
+print "Original B values: "
+print y_B_test
+print "Predicted B values: " 
+print predicted_B
+
+
+rf.fit(X_train, y_C_train)
+print "Random Forest Classifier For C"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_C = rf.predict(X_test)
+
+print "Original C values: "
+print y_C_test
+print "Predicted C values: " 
+print predicted_C
+
+
+rf.fit(X_train, y_D_train)
+print "Random Forest Classifier For D"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_D = rf.predict(X_test)
+
+print "Original D values: "
+print y_D_test
+print "Predicted D values: " 
+print predicted_D
+
+
+rf.fit(X_train, y_E_train)
+print "Random Forest Classifier For E"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_E = rf.predict(X_test)
+
+print "Original E values: "
+print y_E_test
+print "Predicted E values: " 
+print predicted_E
+
+rf.fit(X_train, y_F_train)
+print "Random Forest Classifier For F"
+print("oob Score: "+"%.4f" % rf.oob_score_)
+
+predicted_F = rf.predict(X_test)
+
+print "Original F values: "
+print y_F_test
+print "Predicted F values: " 
+print predicted_F
